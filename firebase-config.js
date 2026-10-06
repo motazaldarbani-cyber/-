@@ -17,3 +17,6 @@ const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 export const storage = getStorage(app);
 export const auth = getAuth(app);
+
+// حساب الإدارة (لازم تسويه في Authentication بنفس الايميل). كلمة السر مش مكتوبة في الكود.
+export const ADMIN_EMAIL = "admin@motaz-ec8dc.com";

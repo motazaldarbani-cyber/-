@@ -4,6 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>حكايات المخيم</title>
+<meta name="theme-color" content="#f4ead8">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="حكايات المخيم">
 <meta name="description" content="موقع يوثق ذكريات وقصص وصور وفيديوهات أهل المخيم.">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@700&family=Cairo:wght@400;600;700&display=swap');
@@ -126,12 +130,23 @@ button.card:hover .read-more{padding-right:8px}
 .drop{animation:pop .2s}
 .lightbox{animation:fade .25s}.lightbox img{animation:pop .35s}
 @media(prefers-reduced-motion:reduce){.hero-logo,.type,.hero p,.hero-buttons,.hero-buttons .btn-main,.hero::before,.dust i,.caret,.modal,.sheet,.drop{animation:none!important}}
+.team{max-width:780px;margin:auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;text-align:center}
+.person{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px 20px;transition:transform .25s,box-shadow .25s}
+.person:hover{transform:translateY(-5px);box-shadow:0 14px 30px rgba(60,40,15,.18)}
+.avatar{width:68px;height:68px;margin:0 auto 10px;border-radius:50%;display:grid;place-items:center;background:var(--accent);color:#fff;font:700 32px 'Aref Ruqaa',serif}
+.person h3{font-size:24px;color:var(--accent-d)}
+.num{display:inline-block;direction:ltr;font:700 22px 'Cairo',sans-serif;letter-spacing:1px;margin:6px 0 14px;color:var(--ink)}
+.pbtns{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.how p{font-size:18px;margin:14px 0;line-height:2}
+#fab{position:fixed;z-index:120;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translate(-50%,140px);opacity:0;transition:transform .5s cubic-bezier(.2,.9,.3,1.2),opacity .4s;background:var(--accent-d);color:#fff;border:0;border-radius:40px;padding:13px 24px;font:700 16px 'Cairo',sans-serif;box-shadow:0 10px 30px rgba(60,40,15,.4);cursor:pointer;white-space:nowrap}
+#fab.show{transform:translate(-50%,0);opacity:1;animation:glow 1.6s infinite}
 @media(max-width:800px){nav{display:none}.hero p{font-size:16px}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
 <body>
 <div id="bar"></div>
+<button id="fab" type="button" hidden>📲 نزّل تطبيق حكايات المخيم</button>
 <header><div class="navbar">
   <a class="logo" href="#home"><i role="img" aria-label="شعار"></i><span>حكايات المخيم</span></a>
   <nav><a href="#stories">الحكايات</a><a href="#videos">الفيديوهات</a><a href="#photos">الصور</a><a href="#about">من نحن</a><a href="#contact">تواصل معنا</a></nav>
@@ -140,6 +155,7 @@ button.card:hover .read-more{padding-right:8px}
     <div class="drop" id="drop" hidden>
       <a href="#stories">الحكايات</a><a href="#videos">الفيديوهات</a><a href="#photos">الصور</a>
       <a href="#about">من نحن</a><a href="#contact">تواصل معنا</a>
+      <button id="installMenu" type="button">📲 نزّل التطبيق</button>
       <button id="openAdmin" type="button">⚙️ الإدارة</button>
     </div>
   </div>
@@ -153,6 +169,7 @@ button.card:hover .read-more{padding-right:8px}
   <div class="hero-buttons">
     <a href="#stories" class="btn btn-main">اكتشف الحكايات</a>
     <a href="#videos" class="btn btn-outline">شاهد الفيديوهات</a>
+    <button class="btn btn-outline" id="installBtn" type="button">📲 نزّل التطبيق</button>
   </div>
 </div></section>
 
@@ -177,13 +194,29 @@ button.card:hover .read-more{padding-right:8px}
 </section>
 
 <section class="contact" id="contact">
-  <div class="section-title"><h2>شاركنا حكايتك</h2><p>عندك صورة قديمة أو قصة أو فيديو؟ ساهم معنا في توثيق ذاكرة المخيم.</p></div>
-  <a href="mailto:info@example.com" class="btn btn-main">تواصل معنا</a>
+  <div class="section-title"><h2>شاركنا حكايتك</h2><p>عندك صورة قديمة أو قصة أو فيديو؟ ساهم معنا في توثيق ذاكرة المخيم. تواصل معنا:</p></div>
+  <div class="team">
+    <div class="person">
+      <div class="avatar" aria-hidden="true">م</div>
+      <h3>معتز اياد عطا</h3>
+      <a class="num" href="tel:+962775279117">0775279117</a>
+      <div class="pbtns"><a class="btn btn-main btn-sm" href="tel:+962775279117">📞 اتصال</a><a class="btn btn-outline btn-sm" href="https://wa.me/962775279117" target="_blank" rel="noopener">واتساب</a></div>
+    </div>
+    <div class="person">
+      <div class="avatar" aria-hidden="true">ص</div>
+      <h3>صهيب احمد الأسطة</h3>
+      <a class="num" href="tel:+962780873196">0780873196</a>
+      <div class="pbtns"><a class="btn btn-main btn-sm" href="tel:+962780873196">📞 اتصال</a><a class="btn btn-outline btn-sm" href="https://wa.me/962780873196" target="_blank" rel="noopener">واتساب</a></div>
+    </div>
+  </div>
 </section>
-<footer>© حكايات المخيم</footer>
+<footer>© حكايات المخيم — معتز اياد عطا وصهيب احمد الأسطة</footer>
 
 <!-- نافذة الحكاية -->
 <div class="modal" id="storyModal" hidden><div class="sheet"><button class="close" type="button" aria-label="إغلاق">✕</button><article id="storyBody"></article></div></div>
+
+<!-- نافذة تنزيل التطبيق -->
+<div class="modal" id="installModal" hidden><div class="sheet"><button class="close" type="button" aria-label="إغلاق">✕</button><h1>نزّل التطبيق</h1><div class="how" id="installHow"></div></div></div>
 
 <!-- نافذة الإدارة -->
 <div class="modal" id="adminModal" hidden><div class="sheet">
@@ -239,7 +272,7 @@ button.card:hover .read-more{padding-right:8px}
     if (calm) { t.classList.add("seen"); return; }
     t.classList.add("rv"); t.style.setProperty("--d", (i % 6) * 90 + "ms"); io.observe(t);
   });
-  revealItems([...document.querySelectorAll(".section-title,.about,.contact .btn")]);
+  revealItems([...document.querySelectorAll(".section-title,.about,.person")]);
 
   // غبار دافي طالع بأول الصفحة
   const dust = $("#dust");
@@ -262,6 +295,46 @@ button.card:hover .read-more{padding-right:8px}
       setTimeout(tick, d);
     })();
   }
+  // ===== تنزيل التطبيق =====
+  (async () => {
+    try {
+      const raw = getComputedStyle(document.documentElement).getPropertyValue("--logo");
+      const img = new Image(); img.src = raw.match(/url\(([^)]+)\)/)[1].replace(/["']/g, ""); await img.decode();
+      const icon = n => { const c = document.createElement("canvas"); c.width = c.height = n; c.getContext("2d").drawImage(img, 0, 0, n, n); return c.toDataURL("image/png"); };
+      const m = { name: "حكايات المخيم", short_name: "حكايات المخيم", lang: "ar", dir: "rtl", start_url: location.href.split("#")[0], display: "standalone", background_color: "#f4ead8", theme_color: "#a8672a",
+        icons: [{ src: icon(192), sizes: "192x192", type: "image/png" }, { src: icon(512), sizes: "512x512", type: "image/png", purpose: "any" }] };
+      const l = document.createElement("link"); l.rel = "manifest"; l.href = URL.createObjectURL(new Blob([JSON.stringify(m)], { type: "application/manifest+json" })); document.head.append(l);
+      const a = document.createElement("link"); a.rel = "apple-touch-icon"; a.href = icon(180); document.head.append(a);
+    } catch (e) { console.warn(e); }
+  })();
+  let dp = null;
+  const btns = [$("#installBtn"), $("#installMenu")];
+  const installed = () => matchMedia("(display-mode: standalone)").matches || navigator.standalone;
+  const hideBtns = () => btns.forEach(b => b.hidden = true);
+  if (installed()) hideBtns();
+  addEventListener("appinstalled", () => { hideBtns(); $("#fab").hidden = true; });
+  addEventListener("beforeinstallprompt", e => { e.preventDefault(); dp = e; });
+  const im = $("#installModal");
+  im.querySelector(".close").onclick = () => (im.hidden = true);
+  im.addEventListener("click", e => e.target === im && (im.hidden = true));
+  btns.forEach(b => b.onclick = async () => {
+    if (dp) { dp.prompt(); await dp.userChoice; dp = null; return; }
+    const ua = navigator.userAgent, how = $("#installHow");
+    const steps = /iPhone|iPad|iPod/.test(ua)
+      ? ["1) افتح الموقع بمتصفح Safari.", "2) اضغط زر المشاركة (المربع والسهم لفوق).", "3) اختار «إضافة إلى الشاشة الرئيسية»."]
+      : /Android/.test(ua)
+      ? ["1) اضغط القائمة ⋮ فوق بمتصفح كروم.", "2) اختار «تثبيت التطبيق» أو «إضافة إلى الشاشة الرئيسية».", "3) اضغط تثبيت."]
+      : ["1) دور على أيقونة التثبيت ⊕ بشريط العنوان بأعلى المتصفح.", "2) أو من القائمة ⋮ اختار «تثبيت حكايات المخيم».", "3) اضغط تثبيت."];
+    how.replaceChildren(...steps.map(t => { const p = document.createElement("p"); p.textContent = t; return p; }));
+    im.hidden = false;
+  });
+  // زر عائم بيذكّر بالتنزيل وبيختفي بعد 5 ثواني
+  const fab = $("#fab");
+  fab.onclick = () => { fab.hidden = true; btns[0].click(); };
+  if (!installed()) setTimeout(() => {
+    fab.hidden = false; requestAnimationFrame(() => requestAnimationFrame(() => fab.classList.add("show")));
+    setTimeout(() => { fab.classList.remove("show"); setTimeout(() => (fab.hidden = true), 600); }, 5000);
+  }, 2500);
 })();
 </script>
 <script type="module">

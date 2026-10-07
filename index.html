@@ -76,20 +76,79 @@ input,textarea{font:inherit;color:var(--ink);background:#fff;border:1px solid va
 .types button.on{background:var(--accent);border-color:var(--accent);color:#fff}
 .row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}
 .msg{min-height:24px;font-weight:600}.ok{color:#2e7d32}.bad{color:#c62828}
+.menu{position:relative}
+.dots{width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:var(--card);font-size:26px;line-height:1;cursor:pointer;color:var(--accent-d)}
+.dots:hover{background:var(--paper2)}
+.drop{position:absolute;top:50px;left:0;min-width:210px;background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:0 14px 34px rgba(60,40,15,.25);padding:6px;display:grid}
+.drop a,.drop button{padding:10px 14px;text-align:right;border:0;background:none;font:600 15px 'Cairo',sans-serif;color:var(--ink);border-radius:8px;cursor:pointer}
+.drop a:hover,.drop button:hover{background:var(--paper2);color:var(--accent-d)}
+.drop button{border-top:1px solid var(--line);border-radius:0 0 8px 8px;margin-top:4px}
+/* ===== حركة وروح ===== */
+#bar{position:fixed;top:0;right:0;left:0;height:3px;background:linear-gradient(90deg,var(--accent),#e7b66a);transform-origin:right;transform:scaleX(0);z-index:200}
+header{transition:box-shadow .3s}
+header.scrolled{box-shadow:0 6px 24px rgba(60,40,15,.15)}
+.logo:hover i{animation:wob .6s}
+@keyframes wob{25%{transform:rotate(-8deg)}75%{transform:rotate(8deg)}}
+.hero::before{animation:kb 26s ease-in-out infinite alternate}
+@keyframes kb{from{transform:scale(1)}to{transform:scale(1.15) translateY(-10px)}}
+.hero-in{position:relative;z-index:1}
+.dust{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.dust i{position:absolute;bottom:-12px;border-radius:50%;background:radial-gradient(circle,#e7b66a,rgba(168,103,42,0));animation:dust linear infinite}
+@keyframes dust{0%{transform:translate(0,0);opacity:0}15%{opacity:.85}100%{transform:translate(50px,-110vh);opacity:0}}
+@keyframes rise{from{opacity:0;translate:0 30px}to{opacity:1;translate:0 0}}
+@keyframes float{0%,100%{transform:translateY(0) rotate(-.6deg)}50%{transform:translateY(-12px) rotate(.6deg)}}
+.hero-logo{animation:rise 1s .1s both,float 7s 1.2s ease-in-out infinite}
+.type{min-height:50px;font:700 clamp(24px,4vw,34px) 'Aref Ruqaa',serif;color:var(--accent-d);margin-bottom:10px;animation:rise .9s .5s both}
+.caret{color:var(--accent);margin-right:3px;font-weight:400;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.hero p{animation:rise .9s .8s both}
+.hero-buttons{animation:rise .9s 1.1s both}
+.hero-buttons .btn-main{animation:glow 2.8s 2s infinite}
+@keyframes glow{0%,100%{box-shadow:0 0 0 0 rgba(168,103,42,.45)}60%{box-shadow:0 0 0 14px rgba(168,103,42,0)}}
+.btn-main{position:relative;overflow:hidden}
+.btn-main::after{content:"";position:absolute;top:0;bottom:0;width:40%;left:-60%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.45),transparent);transform:skewX(-20deg);transition:left .6s}
+.btn-main:hover::after{left:130%}
+.rv{opacity:0;transform:translateY(30px);transition:opacity .8s ease var(--d,0ms),transform .8s cubic-bezier(.2,.8,.2,1) var(--d,0ms)}
+.rv.in{opacity:1;transform:none}
+.section-title h2::after{content:"";display:block;width:90px;height:3px;margin:8px auto 0;border-radius:3px;background:linear-gradient(90deg,transparent,var(--accent),transparent);transform:scaleX(0);transition:transform .9s .3s}
+.section-title.seen h2::after{transform:scaleX(1)}
+.card-image img{transition:transform .6s}
+.card:hover .card-image img{transform:scale(1.08)}
+.read-more{transition:padding .25s}
+button.card:hover .read-more{padding-right:8px}
+.photo{transition:transform .25s,box-shadow .25s}
+.photo:nth-child(odd):hover{transform:rotate(-2deg) scale(1.04);box-shadow:0 12px 26px rgba(60,40,15,.3)}
+.photo:nth-child(even):hover{transform:rotate(2deg) scale(1.04);box-shadow:0 12px 26px rgba(60,40,15,.3)}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+@keyframes pop{from{opacity:0;transform:translateY(24px) scale(.96)}to{opacity:1;transform:none}}
+.modal{animation:fade .25s}
+.sheet{animation:pop .4s cubic-bezier(.2,.9,.3,1.15)}
+.drop{animation:pop .2s}
+.lightbox{animation:fade .25s}.lightbox img{animation:pop .35s}
+@media(prefers-reduced-motion:reduce){.hero-logo,.type,.hero p,.hero-buttons,.hero-buttons .btn-main,.hero::before,.dust i,.caret,.modal,.sheet,.drop{animation:none!important}}
 @media(max-width:800px){nav{display:none}.hero p{font-size:16px}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
 <body>
+<div id="bar"></div>
 <header><div class="navbar">
   <a class="logo" href="#home"><i role="img" aria-label="شعار"></i><span>حكايات المخيم</span></a>
   <nav><a href="#stories">الحكايات</a><a href="#videos">الفيديوهات</a><a href="#photos">الصور</a><a href="#about">من نحن</a><a href="#contact">تواصل معنا</a></nav>
-  <button class="btn btn-outline btn-sm" id="openAdmin" type="button">الإدارة</button>
+  <div class="menu">
+    <button class="dots" id="dots" type="button" aria-label="القائمة" aria-expanded="false">⋮</button>
+    <div class="drop" id="drop" hidden>
+      <a href="#stories">الحكايات</a><a href="#videos">الفيديوهات</a><a href="#photos">الصور</a>
+      <a href="#about">من نحن</a><a href="#contact">تواصل معنا</a>
+      <button id="openAdmin" type="button">⚙️ الإدارة</button>
+    </div>
+  </div>
 </div></header>
 
-<section class="hero" id="home"><div>
+<section class="hero" id="home"><div class="dust" id="dust" aria-hidden="true"></div><div class="hero-in">
   <h1 class="sr-only">حكايات المخيم</h1>
   <div class="hero-logo" role="img" aria-label="حكايات المخيم"></div>
+  <div class="type" aria-hidden="true"><span id="typed"></span><b class="caret">|</b></div>
   <p>ذكريات الناس وقصص الأماكن وصور من الماضي وفيديوهات تحفظ تفاصيل الحياة في المخيم للأجيال القادمة.</p>
   <div class="hero-buttons">
     <a href="#stories" class="btn btn-main">اكتشف الحكايات</a>
@@ -159,6 +218,52 @@ input,textarea{font:inherit;color:var(--ink);background:#fff;border:1px solid va
   </div>
 </div></div>
 
+<script>
+(() => {
+  const calm = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const $ = s => document.querySelector(s);
+  const bar = $("#bar"), hd = document.querySelector("header");
+  addEventListener("scroll", () => {
+    const h = document.documentElement;
+    bar.style.transform = "scaleX(" + h.scrollTop / ((h.scrollHeight - h.clientHeight) || 1) + ")";
+    hd.classList.toggle("scrolled", h.scrollTop > 20);
+  }, { passive: true });
+
+  // ظهور تدريجي عند النزول
+  const io = calm ? null : new IntersectionObserver(es => es.forEach(e => {
+    if (!e.isIntersecting) return;
+    const t = e.target; t.classList.add("in", "seen"); io.unobserve(t);
+    setTimeout(() => { t.classList.remove("rv", "in"); t.style.removeProperty("--d"); }, 1300);
+  }), { threshold: 0.12 });
+  window.revealItems = els => els.forEach((t, i) => {
+    if (calm) { t.classList.add("seen"); return; }
+    t.classList.add("rv"); t.style.setProperty("--d", (i % 6) * 90 + "ms"); io.observe(t);
+  });
+  revealItems([...document.querySelectorAll(".section-title,.about,.contact .btn")]);
+
+  // غبار دافي طالع بأول الصفحة
+  const dust = $("#dust");
+  if (!calm) for (let i = 0; i < 26; i++) {
+    const s = document.createElement("i"), z = 3 + Math.random() * 6;
+    s.style.cssText = "left:" + Math.random() * 100 + "%;width:" + z + "px;height:" + z + "px;animation-duration:" + (9 + Math.random() * 12) + "s;animation-delay:-" + Math.random() * 20 + "s";
+    dust.append(s);
+  }
+
+  // كتابة جمل بروح المخيم
+  const t = $("#typed"), words = ["هنا تبدأ الحكاية…", "ذكريات ما بتنتسى…", "كل حارة إلها قصة…", "نحفظها للأجيال القادمة…"];
+  if (calm) t.textContent = words[0];
+  else {
+    let w = 0, c = 0, del = false;
+    (function tick() {
+      const word = words[w]; c += del ? -1 : 1; t.textContent = word.slice(0, c);
+      let d = del ? 35 : 95;
+      if (!del && c === word.length) { del = true; d = 1900; }
+      else if (del && c === 0) { del = false; w = (w + 1) % words.length; d = 450; }
+      setTimeout(tick, d);
+    })();
+  }
+})();
+</script>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getFirestore, collection, query, orderBy, limit, onSnapshot, addDoc, deleteDoc, doc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
@@ -198,6 +303,9 @@ function wireModal(m) {
 }
 const storyModal = $("#storyModal"), adminModal = $("#adminModal");
 wireModal(storyModal); wireModal(adminModal);
+const dots = $("#dots"), drop = $("#drop");
+dots.onclick = e => { e.stopPropagation(); drop.hidden = !drop.hidden; dots.setAttribute("aria-expanded", String(!drop.hidden)); };
+document.addEventListener("click", () => { drop.hidden = true; dots.setAttribute("aria-expanded", "false"); });
 $("#openAdmin").onclick = () => { adminModal.hidden = false; };
 if (location.hash === "#admin") adminModal.hidden = false;
 
@@ -236,11 +344,16 @@ function photoCard(d) {
 const boxes = { story: $("#stories-grid"), video: $("#videos-grid"), photo: $("#photos-grid") };
 const msgs = { story: "لسا ما في حكايات. ارجع قريب.", video: "لسا ما في فيديوهات.", photo: "لسا ما في صور." };
 const makers = { story: storyCard, video: videoCard, photo: photoCard };
+let firstRender = true;
 onSnapshot(query(collection(db, "posts"), orderBy("createdAt", "desc"), limit(40)), snap => {
   const all = snap.docs.map(d => ({ id: d.id, ...d.data() }));
   for (const t in boxes) {
     const arr = all.filter(x => x.type === t);
     arr.length ? boxes[t].replaceChildren(...arr.map(makers[t])) : empty(boxes[t], msgs[t]);
+  }
+  if (firstRender) {
+    firstRender = false;
+    for (const t in boxes) window.revealItems?.([...boxes[t].children].filter(x => !x.classList.contains("empty")));
   }
 }, e => { console.error(e); for (const t in boxes) empty(boxes[t], "تعذر تحميل المحتوى."); });
 
